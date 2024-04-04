@@ -120,3 +120,6 @@ vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 
 " remap for mucomplete
 imap <c-j> <plug>(MUcompleteFwd)
+
+" search and replace selected text (in visual mode) with Ctrl+r
+vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
