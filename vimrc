@@ -63,6 +63,8 @@ Plug 'Shougo/vimshell.vim'
 
 call plug#end()
 
+" Note: python syntax checker; pip install flake8
+
 """""""""""""""""  Defs
 :let g:airline#extensions#tabline#enabled = 1
 :let mapleader = ","
