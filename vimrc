@@ -2,6 +2,20 @@ filetype off                  " required
 set encoding=utf-8
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 let g:pymode_python = 'python3'
+"" polyglot
+let g:polyglot_disabled = ['csv']
+"let g:polyglot_disabled = ['go']
+" Enable ESLint only for JavaScript.
+":let g:ale_linters = ['eslint']
+:let g:ale_fixers = {'javascript': ['eslint'], 'python': ['autopep8', 'yapf']}
+
+:let g:ale_sign_error = '✘'
+:let g:ale_sign_warning = '⚠'
+" Set this variable to 1 to fix files when you save them.
+:let g:ale_fix_on_save = 1
+highlight ALEErrorSign ctermbg=NONE ctermfg=red
+highlight ALEWarningSign ctermbg=NONE ctermfg=yellow
+
 
 call plug#begin('~/.vim/plugged')
 
@@ -19,7 +33,6 @@ Plug 'davidhalter/jedi-vim'
 Plug 'beautify-web/js-beautify'
 
 Plug 'habamax/vim-asciidoctor'
-
 
 " language packs
 Plug 'sheerun/vim-polyglot'
@@ -50,7 +63,7 @@ Plug 'rbong/vim-flog'
 " Git diff
 Plug 'airblade/vim-gitgutter'
 
-Plug 'godlygeek/tabular'
+"Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 
 Plug 'preservim/nerdtree'
@@ -63,9 +76,8 @@ Plug 'Shougo/vimshell.vim'
 
 call plug#end()
 
-" Note: python syntax checker; pip install flake8
-
 """""""""""""""""  Defs
+let g:jedi#foce_py_version = 3
 :let g:airline#extensions#tabline#enabled = 1
 :let mapleader = ","
 :set showcmd
@@ -98,19 +110,6 @@ endif
 command SS :execute 'vimgrep '.expand('<cword>').' '.expand('%') | :copen | :cc
 command RS execute 'silent !ag --numbers --nobreak --nocolor --smart-case ' . shellescape(expand('<cword>')) . ' ' . expand('%:p:h') | copen | redraw!
 
-"" polyglot
-"let g:polyglot_disabled = ['go']
-" Enable ESLint only for JavaScript.
-":let g:ale_linters = ['eslint']
-:let g:ale_fixers = {'javascript': ['eslint'], 'python': ['autopep8', 'yapf']}
-
-:let g:ale_sign_error = '✘'
-:let g:ale_sign_warning = '⚠'
-" Set this variable to 1 to fix files when you save them.
-:let g:ale_fix_on_save = 1
-highlight ALEErrorSign ctermbg=NONE ctermfg=red
-highlight ALEWarningSign ctermbg=NONE ctermfg=yellow
-
 " highlight search results
 :set hlsearch
 
@@ -123,5 +122,6 @@ vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 " remap for mucomplete
 imap <c-j> <plug>(MUcompleteFwd)
 
-" search and replace selected text (in visual mode) with Ctrl+r
-vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
+" remap copilot
+imap <M-.> <Plug>(copilot-next)
+imap <M-,> <Plug>(copilot-prev)
